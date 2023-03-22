@@ -10,7 +10,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class FunctionService implements RootFinding {
+public class FunctionService implements RootFinding, IntegralCalculating {
 
     private List<Coordinate> function;
     private int steps;
@@ -64,8 +64,8 @@ public class FunctionService implements RootFinding {
             it++;
         } while (
 //                Math.abs(xNext - xCurrent) >= eps &&
-                 Math.abs(analyticFunction(xNext).getY()) >= eps &&
-                 it < numberOfIterations);
+                Math.abs(analyticFunction(xNext).getY()) >= eps &&
+                        it < numberOfIterations);
         return xNext;
     }
 
@@ -96,5 +96,63 @@ public class FunctionService implements RootFinding {
         dt = (end - start) / steps;
 
         log.info("\nstart: " + start + "\nend: " + end + " \nsteps: " + steps + "\ndt: " + dt);
+    }
+
+
+    private Coordinate analyticFunctionLab3(double x) {
+        return new Coordinate(x, Math.pow(x, 3) / (1 + x));
+    }
+
+    @Override
+    public double rectangle(double a, double b) {
+        steps = 100;
+        calcDt(a, b, steps);
+        double area = 0;
+        double xCurrent = a;
+
+        do {
+            area += analyticFunctionLab3(xCurrent).getY();
+            xCurrent += dt;
+        } while (xCurrent < b);
+        area *= dt;
+        return area;
+    }
+
+    @Override
+    public double trapezoid(double a, double b) {
+        steps = 100;
+        calcDt(a, b, steps);
+        double area = 0;
+        double xCurrent = a;
+
+        area += analyticFunctionLab3(xCurrent).getY();
+        do {
+            area += 2 * analyticFunctionLab3(xCurrent).getY();
+            xCurrent += dt;
+        } while (xCurrent < b);
+        area += analyticFunctionLab3(xCurrent + dt).getY();
+        area *= dt / 2;
+
+        return area;
+    }
+
+    @Override
+    public double simpson(double a, double b) {
+        steps = 100;
+        calcDt(a, b, steps);
+        double area = 0;
+        double xCurrent = a;
+
+        area += analyticFunctionLab3(xCurrent).getY();
+        do {
+            area += 4 * analyticFunctionLab3(xCurrent).getY();
+            xCurrent += dt;
+            area += 2 * analyticFunctionLab3(xCurrent).getY();
+            xCurrent += dt;
+        } while (xCurrent < b);
+        area += analyticFunctionLab3(xCurrent + dt).getY();
+        area *= dt / 3;
+
+        return area;
     }
 }

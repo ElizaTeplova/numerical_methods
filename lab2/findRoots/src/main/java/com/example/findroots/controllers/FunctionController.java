@@ -31,7 +31,7 @@ public class FunctionController {
 //        System.out.println(res);
         return res;
     }
-
+//https://www.desmos.com/calculator/zhkstobxzl
     @PostMapping("/dichotomy-method")
     public double findRootByDichotomyMethod(@RequestBody InitialConditionDichotomy init) {
         double res = functionService.dichotomyMethod(init.getX0(), init.getX1(), init.getNumberOfIterations());
