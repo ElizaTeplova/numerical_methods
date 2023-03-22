@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InitialCondition {
+public class InitialConditionDichotomy {
     private double x0;
     private double x1;
     private int numberOfIterations;

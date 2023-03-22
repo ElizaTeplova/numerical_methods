@@ -40,14 +40,33 @@ public class FunctionService implements RootFinding {
 
             it++;
 //            System.out.println("f2: " + f2.getY() + " it: " + it);
-        } while (it < numberOfIterations && Math.abs(f2.getY()) >= eps);
+        } while (it < numberOfIterations && Math.abs(f2.getY()) >= eps && Math.abs(x0 - x1) >= eps);
 
         return x2;
     }
 
     @Override
-    public double newtonsMethod() {
-        return 0;
+    public double newtonsMethod(double xGuessed) {
+        int numberOfIterations = 100, it = 0;
+        dt = 0.01;
+        double eps = 10e-3;
+        double xNext;
+        double xCurrent = xGuessed;
+        Coordinate f, fDerivative;
+
+        do {
+
+            f = analyticFunction(xCurrent);
+            fDerivative = fifthFormulaLab1(xCurrent);
+            xNext = xCurrent - f.getY() / fDerivative.getY();
+            System.out.println("it: " + it + " xNext: " + xNext + " xCurrent: " + xCurrent);
+            xCurrent = xNext;
+            it++;
+        } while (
+//                Math.abs(xNext - xCurrent) >= eps &&
+                 Math.abs(analyticFunction(xNext).getY()) >= eps &&
+                 it < numberOfIterations);
+        return xNext;
     }
 
 
@@ -63,6 +82,10 @@ public class FunctionService implements RootFinding {
 
     private Coordinate analyticFunction(double x) {
         return new Coordinate(x, 5 * Math.cos(x) - x * Math.sin(x) - 2 * x);
+    }
+
+    private Coordinate fifthFormulaLab1(double x) {
+        return new Coordinate(x, (analyticFunction(x + dt).getY() - analyticFunction(x - dt).getY()) / (2 * dt));
     }
 
     public void calcDt(double start, double end, int steps) {

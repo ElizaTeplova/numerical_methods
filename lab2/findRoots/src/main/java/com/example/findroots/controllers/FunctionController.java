@@ -1,11 +1,7 @@
 package com.example.findroots.controllers;
 
-import com.example.findroots.models.Coordinate;
-import com.example.findroots.models.InitialCondition;
-import com.example.findroots.models.InitialParameters;
-import com.example.findroots.models.Lab2;
+import com.example.findroots.models.*;
 import com.example.findroots.service.FunctionService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,8 +33,17 @@ public class FunctionController {
     }
 
     @PostMapping("/dichotomy-method")
-    public double findRootByDichotomyMethod(@RequestBody InitialCondition init) {
+    public double findRootByDichotomyMethod(@RequestBody InitialConditionDichotomy init) {
         double res = functionService.dichotomyMethod(init.getX0(), init.getX1(), init.getNumberOfIterations());
+        System.out.println(res);
+        return res;
+    }
+
+    @PostMapping("/newtons-method")
+    public double findRootByNewtonsMethod(@RequestBody InitialConditionNewton init) {
+        init.setXGuessed(0.738);
+        System.out.println(init.getXGuessed());
+        double res = functionService.newtonsMethod(init.getXGuessed());
         System.out.println(res);
         return res;
     }

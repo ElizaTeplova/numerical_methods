@@ -93,9 +93,9 @@ public class FunctionController {
         return function;
     }
 
-    @GetMapping("/find-root/{x0}")
+    @PostMapping("/find-root/")
     @Lab1(ex = 2, description = "find roots")
-    public Coordinate findRoot(@PathVariable double x0) {
+    public Coordinate findRootByDichotomyMethod(@PathVariable double x0) {
         return calculatorService.newtonMethod(x0);
     }
 

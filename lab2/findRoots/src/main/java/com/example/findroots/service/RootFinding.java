@@ -10,6 +10,6 @@ public interface RootFinding {
 
     double dichotomyMethod(double a, double b, int numberOfIterations);
 
-    double newtonsMethod();
+    double newtonsMethod(double xGuessed);
 
 }

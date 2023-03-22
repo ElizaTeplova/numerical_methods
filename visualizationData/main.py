@@ -2,6 +2,7 @@ import requests
 import json
 import matplotlib.pyplot as plt
 
+stepsNumber = 200
 url = 'http://localhost:1337/function'
 obj = {
     'steps': 5,
@@ -15,13 +16,13 @@ obj = {
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
 jsonRequestBody = {
-    "steps": 200,
+    "steps": stepsNumber,
     "start": 1.1,
     "end": 7
 }
 
 responseFunction = requests.post(url=url, json={
-    "steps": 200,
+    "steps": stepsNumber,
     "start": 1,
     "end": 7
 }, )
@@ -56,7 +57,7 @@ for item in jfile:
 responseAnalyticSecondDerivativeFunction = requests.post(
     url="http://localhost:1337/second-derivative-analytic-function",
     json={
-        "steps": 200,
+        "steps": stepsNumber,
         "start": 1.5,
         "end": 7
     })
@@ -75,7 +76,7 @@ for item in jfile:
 responseAnalyticThirdDerivativeFunction = requests.post(
     url="http://localhost:1337/third-derivative-analytic-function",
     json={
-        "steps": 200,
+        "steps": stepsNumber,
         "start": 1.5,
         "end": 7
     })
@@ -105,7 +106,7 @@ plt.legend(["function", "firstDerivative", "secondDerivative", "thirdDerivative"
 responseNumericRightFirstDerivativeFunction = requests.post(
     url="http://localhost:1337/first-right-derivative-numeric-function",
     json={
-        "steps": 200,
+        "steps": stepsNumber,
         "start": 1.1,
         "end": 7
     })
@@ -124,7 +125,7 @@ for item in jfile:
 responseNumericCentralFirstDerivativeFunction = requests.post(
     url="http://localhost:1337/first-central-derivative-numeric-function",
     json={
-        "steps": 200,
+        "steps": stepsNumber,
         "start": 1.2,
         "end": 7
     })
@@ -143,7 +144,7 @@ for item in jfile:
 responseNumericSecondDerivativeFunction = requests.post(
     url="http://localhost:1337/second-derivative-numeric-function",
     json={
-        "steps": 200,
+        "steps": stepsNumber,
         "start": 1.5,
         "end": 7
     })
@@ -163,7 +164,7 @@ for item in jfile:
 responseNumericThirdDerivativeFunction = requests.post(
     url="http://localhost:1337/third-derivative-numeric-function",
     json={
-        "steps": 200,
+        "steps": stepsNumber,
         "start": 1.5,
         "end": 7
     })
