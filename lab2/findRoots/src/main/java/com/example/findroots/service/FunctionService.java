@@ -100,7 +100,8 @@ public class FunctionService implements RootFinding, IntegralCalculating {
 
 
     private Coordinate analyticFunctionLab3(double x) {
-        return new Coordinate(x, Math.pow(x, 3) / (1 + x));
+//        return new Coordinate(x, Math.pow(x, 3) / (1 + x));
+        return new Coordinate(x, 1);
     }
 
     @Override
@@ -126,7 +127,9 @@ public class FunctionService implements RootFinding, IntegralCalculating {
         double xCurrent = a;
 
         area += analyticFunctionLab3(xCurrent).getY();
+        xCurrent += dt;
         do {
+
             area += 2 * analyticFunctionLab3(xCurrent).getY();
             xCurrent += dt;
         } while (xCurrent < b);
@@ -145,10 +148,10 @@ public class FunctionService implements RootFinding, IntegralCalculating {
 
         area += analyticFunctionLab3(xCurrent).getY();
         do {
+            xCurrent += dt;
             area += 4 * analyticFunctionLab3(xCurrent).getY();
             xCurrent += dt;
             area += 2 * analyticFunctionLab3(xCurrent).getY();
-            xCurrent += dt;
         } while (xCurrent < b);
         area += analyticFunctionLab3(xCurrent + dt).getY();
         area *= dt / 3;

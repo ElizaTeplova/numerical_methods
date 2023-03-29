@@ -41,7 +41,7 @@ public class FunctionController {
 
     @PostMapping("/newtons-method")
     public double findRootByNewtonsMethod(@RequestBody InitialConditionNewton init) {
-        init.setXGuessed(0.738);
+        init.setXGuessed(-3.8);
         System.out.println(init.getXGuessed());
         double res = functionService.newtonsMethod(init.getXGuessed());
         System.out.println(res);
